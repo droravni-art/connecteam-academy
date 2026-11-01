@@ -1,0 +1,1992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connecteam Academy: Executive Strategy & Ecosystem Playbook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #060b14;
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .glow-cyan {
+      box-shadow: 0 0 30px -5px rgba(6, 182, 212, 0.35);
+    }
+    .glow-blue {
+      box-shadow: 0 0 30px -5px rgba(37, 99, 235, 0.35);
+    }
+    .glow-emerald {
+      box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.35);
+    }
+    .glow-purple {
+      box-shadow: 0 0 30px -5px rgba(168, 85, 247, 0.35);
+    }
+    .glow-amber {
+      box-shadow: 0 0 30px -5px rgba(245, 158, 11, 0.35);
+    }
+    .floating-fab-container {
+      position: fixed !important;
+      bottom: 1.5rem !important;
+      right: 1.5rem !important;
+      z-index: 9999 !important;
+      pointer-events: auto !important;
+      transform: translateZ(0);
+      will-change: transform;
+    }
+    @media (min-width: 640px) {
+      .floating-fab-container {
+        bottom: 2rem !important;
+        right: 2rem !important;
+      }
+    }
+    .nav-tab-active {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(37, 99, 235, 0.25)) !important;
+      border-color: #06b6d4 !important;
+      color: #38bdf8 !important;
+      box-shadow: 0 0 15px -3px rgba(6, 182, 212, 0.4);
+    }
+    .funnel-step-active {
+      border-color: #06b6d4 !important;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(8, 47, 73, 0.45)) !important;
+      transform: translateY(-2px);
+    }
+    .post-step-active {
+      border-color: #10b981 !important;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(6, 78, 59, 0.45)) !important;
+      transform: translateY(-2px);
+    }
+    .hub-pill-active {
+      background: linear-gradient(135deg, #0284c7, #2563eb) !important;
+      color: #ffffff !important;
+      border-color: #38bdf8 !important;
+      box-shadow: 0 4px 14px 0 rgba(14, 165, 233, 0.35);
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #080d19;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="min-h-screen selection:bg-cyan-500 selection:text-slate-950 flex flex-col justify-between">
+
+  <!-- TOP HEADER & NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-slate-950/90 border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Logo & Title -->
+      <div class="flex items-center space-x-3">
+        <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-500/25 shrink-0">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="text-[9px] font-bold uppercase tracking-widest text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 px-2 py-0.5 rounded-full">Interactive Academy</span>
+            <span class="text-[11px] text-slate-400 font-mono hidden md:inline">&bull; 3 Master Modules</span>
+          </div>
+          <h1 class="text-sm sm:text-base font-extrabold text-white tracking-tight leading-none mt-1">
+            Connecteam <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">Executive Playbook</span>
+          </h1>
+        </div>
+      </div>
+
+      <!-- Desktop Topic Switcher Tabs -->
+      <nav class="hidden lg:flex space-x-1.5 p-1 bg-slate-900/90 border border-slate-800 rounded-2xl">
+        <button onclick="switchMasterTopic('funnel')" id="tab-nav-funnel" class="px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all nav-tab-active flex items-center space-x-2">
+          <span>📊</span>
+          <span>1. Funnel & SaaS Metrics</span>
+        </button>
+        <button onclick="switchMasterTopic('offering')" id="tab-nav-offering" class="px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all text-slate-400 hover:text-white flex items-center space-x-2 border border-transparent">
+          <span>⚙️</span>
+          <span>2. Product & Ecosystem</span>
+        </button>
+        <button onclick="switchMasterTopic('markets')" id="tab-nav-markets" class="px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all text-slate-400 hover:text-white flex items-center space-x-2 border border-transparent">
+          <span>🚀</span>
+          <span>3. Target Markets & PLG</span>
+        </button>
+      </nav>
+
+      <!-- Global Actions -->
+      <div class="flex items-center space-x-2">
+        <button onclick="toggleGlobalBotDrawer(true)" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white shadow-lg shadow-cyan-500/20 transition-all border border-cyan-400/30">
+          <svg class="w-4 h-4 text-cyan-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+          </svg>
+          <span class="hidden sm:inline">Strategy AI</span>
+          <span class="sm:hidden">AI</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Sub-Navigation -->
+    <div class="lg:hidden flex overflow-x-auto px-4 py-2.5 bg-slate-900/95 border-t border-slate-800 space-x-2 scrollbar-none">
+      <button onclick="switchMasterTopic('funnel')" id="mob-nav-funnel" class="whitespace-nowrap px-3 py-1.5 text-xs font-bold rounded-xl bg-cyan-600 text-white shrink-0">
+        1. Funnel & Metrics
+      </button>
+      <button onclick="switchMasterTopic('offering')" id="mob-nav-offering" class="whitespace-nowrap px-3 py-1.5 text-xs font-medium rounded-xl bg-slate-800 text-slate-300 shrink-0">
+        2. Product Ecosystem
+      </button>
+      <button onclick="switchMasterTopic('markets')" id="mob-nav-markets" class="whitespace-nowrap px-3 py-1.5 text-xs font-medium rounded-xl bg-slate-800 text-slate-300 shrink-0">
+        3. Markets & PLG
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN VIEWPORT -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-10">
+
+    <!-- ======================================================================= -->
+    <!-- TOPIC 1: FUNNEL & SAAS METRICS                                          -->
+    <!-- ======================================================================= -->
+    <div id="module-funnel" class="space-y-10">
+      
+      <!-- Hero Banner -->
+      <section class="rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-slate-900/90 via-slate-950 to-blue-950/40 border border-slate-800 relative overflow-hidden shadow-2xl">
+        <div class="absolute -top-24 -right-24 w-80 h-80 bg-cyan-600/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div class="space-y-2 max-w-3xl">
+            <div class="inline-flex items-center space-x-2 text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider">
+              <span>Topic 1 of 3</span>
+              <span>&bull;</span>
+              <span>Financial Mechanics & Funnel Velocity</span>
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-black text-white tracking-tight">The 10-Stage Funnel & Unit Economics Engine</h2>
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+              Understand how Connecteam guides deskless business owners from broad market intent through 8 Pre-Conversion milestones into 2 Post-Conversion revenue phases.
+            </p>
+          </div>
+          <div class="grid grid-cols-2 gap-3 w-full lg:w-auto shrink-0 font-mono text-xs">
+            <div class="p-3 rounded-2xl bg-slate-950/80 border border-cyan-500/30">
+              <span class="text-[10px] text-slate-400 block font-sans">Pre-Conversion</span>
+              <span class="text-xl font-black text-cyan-400">Stages 1–8</span>
+              <span class="text-[10px] text-slate-400 font-sans block mt-0.5">Demand &rarr; Free Trial</span>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-950/80 border border-emerald-500/30">
+              <span class="text-[10px] text-slate-400 block font-sans">Post-Conversion</span>
+              <span class="text-xl font-black text-emerald-400">Stages 9–10</span>
+              <span class="text-[10px] text-slate-400 font-sans block mt-0.5">Paid Sub &rarr; Bank Realized</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Business Model Comparison Matrix -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center space-x-2">
+              <span>Business Model Revenue Realization Comparison</span>
+            </h3>
+            <p class="text-xs text-slate-400">Why SaaS requires patience during CAC payback to unlock exponential long-term LTV.</p>
+          </div>
+          <span class="text-xs font-mono text-cyan-400 bg-cyan-950/60 px-2.5 py-1 rounded-xl border border-cyan-800/60 hidden sm:inline">
+            Compounding vs. Instant Checkout
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- SaaS -->
+          <div class="p-5 rounded-2xl bg-slate-900/90 border-2 border-cyan-500/60 glow-cyan space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">RECURRING &bull; COMPOUNDING</span>
+              <span class="text-lg">⚡</span>
+            </div>
+            <h4 class="text-base font-bold text-white">SaaS (Connecteam / Netflix)</h4>
+            <div class="space-y-2 text-xs text-slate-300">
+              <div class="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800">
+                <span class="text-slate-400 text-[10px] uppercase font-bold block">Cash Realization</span>
+                <strong class="text-cyan-300">Months 0 to 60+ (Recurring)</strong>
+                <p class="text-[11px] text-slate-400 mt-0.5">CAC is repaid over 5–12 months. All subsequent months deliver net contribution margin.</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800">
+                <span class="text-slate-400 text-[10px] uppercase font-bold block">Stickiness & Touches</span>
+                <strong class="text-emerald-400">Massive Switching Friction (8–15+ Touches)</strong>
+                <p class="text-[11px] text-slate-400 mt-0.5">When field crews rely on Connecteam for shifts & chat, switching costs prevent churn.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- E-Commerce -->
+          <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3 hover:border-slate-700 transition-all">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-pink-500/10 text-pink-300 border border-pink-500/20">TRANSACTIONAL</span>
+              <span class="text-lg">🛍️</span>
+            </div>
+            <h4 class="text-base font-bold text-white">E-Commerce (Zara / Shein)</h4>
+            <div class="space-y-2 text-xs text-slate-300">
+              <div class="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800">
+                <span class="text-slate-400 text-[10px] uppercase font-bold block">Cash Realization</span>
+                <strong class="text-pink-400">Instant Day 0 Checkout</strong>
+                <p class="text-[11px] text-slate-400 mt-0.5">Full cart revenue collected on checkout, but perpetual ad retargeting is needed for repeat orders.</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800">
+                <span class="text-slate-400 text-[10px] uppercase font-bold block">Stickiness & Touches</span>
+                <strong class="text-amber-400">Low Loyalty (1–3 Touches)</strong>
+                <p class="text-[11px] text-slate-400 mt-0.5">Shoppers jump to competitors for flash sales; low platform switching barrier.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lead Gen -->
+          <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3 hover:border-slate-700 transition-all">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20">SALES-LED</span>
+              <span class="text-lg">📞</span>
+            </div>
+            <h4 class="text-base font-bold text-white">Lead Gen (Auto / Insurance)</h4>
+            <div class="space-y-2 text-xs text-slate-300">
+              <div class="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800">
+                <span class="text-slate-400 text-[10px] uppercase font-bold block">Cash Realization</span>
+                <strong class="text-purple-400">Delayed Lump-Sum Commission</strong>
+                <p class="text-[11px] text-slate-400 mt-0.5">Lead collected today; monetization occurs weeks later when an insurance agent or car dealer closes.</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800">
+                <span class="text-slate-400 text-[10px] uppercase font-bold block">Stickiness & Touches</span>
+                <strong class="text-blue-300">Episodic / Infrequent (4–8 Touches)</strong>
+                <p class="text-[11px] text-slate-400 mt-0.5">Long multi-year gaps between purchases (car bought every 5 yrs; policy renewed yearly).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10-Stage Funnel Navigator -->
+      <section class="space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white">Interactive 10-Stage Pipeline Navigator</h3>
+            <p class="text-xs text-slate-400">Select any stage to inspect operational mechanics, drop-off risks, and field playbooks.</p>
+          </div>
+          <div class="flex items-center space-x-2 text-[11px] font-mono">
+            <span class="text-cyan-400">● 1–8: Pre-Conversion</span>
+            <span class="text-emerald-400">● 9–10: Post-Conversion</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-2 text-left">
+          <button onclick="pickFunnelStage(1)" id="f-step-1" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 transition-all funnel-step-active">
+            <span class="text-[9px] font-mono text-cyan-400 font-bold block">01 &bull; PRE</span>
+            <span class="text-xs font-bold text-white block truncate">Demand Gen</span>
+            <span class="text-[10px] text-cyan-300/80 block truncate">Pull vs Push</span>
+          </button>
+          <button onclick="pickFunnelStage(2)" id="f-step-2" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 transition-all">
+            <span class="text-[9px] font-mono text-cyan-400 font-bold block">02 &bull; PRE</span>
+            <span class="text-xs font-bold text-white block truncate">Impressions</span>
+            <span class="text-[10px] text-slate-400 block truncate">Reach & CPM</span>
+          </button>
+          <button onclick="pickFunnelStage(3)" id="f-step-3" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 transition-all">
+            <span class="text-[9px] font-mono text-cyan-400 font-bold block">03 &bull; PRE</span>
+            <span class="text-xs font-bold text-white block truncate">Clicks</span>
+            <span class="text-[10px] text-slate-400 block truncate">CPC / PPC</span>
+          </button>
+          <button onclick="pickFunnelStage(4)" id="f-step-4" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 transition-all">
+            <span class="text-[9px] font-mono text-cyan-400 font-bold block">04 &bull; PRE</span>
+            <span class="text-xs font-bold text-white block truncate">Landing</span>
+            <span class="text-[10px] text-slate-400 block truncate">Hero CTA</span>
+          </button>
+          <button onclick="pickFunnelStage(5)" id="f-step-5" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 transition-all">
+            <span class="text-[9px] font-mono text-cyan-400 font-bold block">05 &bull; PRE</span>
+            <span class="text-xs font-bold text-white block truncate">Leads</span>
+            <span class="text-[10px] text-slate-400 block truncate">Work Email</span>
+          </button>
+          <button onclick="pickFunnelStage(6)" id="f-step-6" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 transition-all">
+            <span class="text-[9px] font-mono text-cyan-400 font-bold block">06 &bull; PRE</span>
+            <span class="text-xs font-bold text-white block truncate">Sign-up</span>
+            <span class="text-[10px] text-slate-400 block truncate">Team Needs</span>
+          </button>
+          <button onclick="pickFunnelStage(7)" id="f-step-7" class="p-2.5 rounded-xl border border-amber-500/50 bg-slate-900/80 transition-all">
+            <span class="text-[9px] font-mono text-amber-400 font-bold block">07 &bull; KEY MQL</span>
+            <span class="text-xs font-bold text-white block truncate">Cross-Device</span>
+            <span class="text-[10px] text-amber-300 block truncate">Desktop &rarr; App</span>
+          </button>
+          <button onclick="pickFunnelStage(8)" id="f-step-8" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 transition-all">
+            <span class="text-[9px] font-mono text-cyan-400 font-bold block">08 &bull; PRE</span>
+            <span class="text-xs font-bold text-white block truncate">14-Day Trial</span>
+            <span class="text-[10px] text-slate-400 block truncate">Full Sandbox</span>
+          </button>
+          <button onclick="pickFunnelStage(9)" id="f-step-9" class="p-2.5 rounded-xl border border-emerald-900/60 bg-slate-900/80 transition-all">
+            <span class="text-[9px] font-mono text-emerald-400 font-bold block">09 &bull; POST</span>
+            <span class="text-xs font-bold text-emerald-300 block truncate">Paid Conversion</span>
+            <span class="text-[10px] text-emerald-400/80 block truncate">Yearly / Monthly</span>
+          </button>
+          <button onclick="pickFunnelStage(10)" id="f-step-10" class="p-2.5 rounded-xl border border-emerald-900/60 bg-slate-900/80 transition-all">
+            <span class="text-[9px] font-mono text-emerald-400 font-bold block">10 &bull; POST</span>
+            <span class="text-xs font-bold text-emerald-300 block truncate">Collections</span>
+            <span class="text-[10px] text-emerald-400/80 block truncate">Cash in Bank</span>
+          </button>
+        </div>
+
+        <!-- Stage Inspector Card -->
+        <div id="funnel-stage-detail" class="p-5 sm:p-7 rounded-3xl bg-slate-900/95 border border-cyan-500/40 glow-cyan transition-all">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Unit Economics Simulator -->
+      <section class="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+          <div>
+            <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-400">FINANCIAL ENGINE</span>
+            <h3 class="text-lg sm:text-xl font-bold text-white mt-0.5">Live SaaS Unit Economics & T-ROI Payback Simulator</h3>
+            <p class="text-xs text-slate-400">Test how seats, add-on hubs, CAC, and churn determine payback velocity and net LTV.</p>
+          </div>
+          <button onclick="resetFunnelSimulator()" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all self-start sm:self-auto">
+            Reset Benchmarks
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-5 space-y-4">
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs">
+                <span class="text-slate-300">Average Seats per Client:</span>
+                <span id="calc-seats-lbl" class="font-mono text-cyan-400 font-bold">35 Seats</span>
+              </div>
+              <input type="range" id="calc-seats" min="5" max="150" step="5" value="35" class="w-full h-2 bg-slate-800 rounded-lg accent-cyan-500 cursor-pointer" oninput="runFunnelCalc()">
+            </div>
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs">
+                <span class="text-slate-300">Seat Price / Month:</span>
+                <span id="calc-price-lbl" class="font-mono text-cyan-400 font-bold">$3.50 / seat</span>
+              </div>
+              <input type="range" id="calc-price" min="2" max="10" step="0.5" value="3.5" class="w-full h-2 bg-slate-800 rounded-lg accent-cyan-500 cursor-pointer" oninput="runFunnelCalc()">
+            </div>
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs">
+                <span class="text-slate-300">Monthly Add-on Hubs:</span>
+                <span id="calc-hubs-lbl" class="font-mono text-cyan-400 font-bold">+$49 / mo</span>
+              </div>
+              <input type="range" id="calc-hubs" min="0" max="150" step="15" value="45" class="w-full h-2 bg-slate-800 rounded-lg accent-cyan-500 cursor-pointer" oninput="runFunnelCalc()">
+            </div>
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs">
+                <span class="text-slate-300">Customer Acquisition Cost (CAC):</span>
+                <span id="calc-cac-lbl" class="font-mono text-amber-400 font-bold">$850</span>
+              </div>
+              <input type="range" id="calc-cac" min="200" max="3000" step="50" value="850" class="w-full h-2 bg-slate-800 rounded-lg accent-amber-500 cursor-pointer" oninput="runFunnelCalc()">
+            </div>
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs">
+                <span class="text-slate-300">Annual Logo Churn Rate:</span>
+                <span id="calc-churn-lbl" class="font-mono text-rose-400 font-bold">14% / yr</span>
+              </div>
+              <input type="range" id="calc-churn" min="4" max="35" step="1" value="14" class="w-full h-2 bg-slate-800 rounded-lg accent-rose-500 cursor-pointer" oninput="runFunnelCalc()">
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-4">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800">
+                <span class="text-[10px] text-slate-400 uppercase font-mono block">MRR per Client</span>
+                <div id="out-funnel-mrr" class="text-base font-bold font-mono text-white mt-0.5">$167.50</div>
+                <span class="text-[10px] text-cyan-400">Monthly Run-rate</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800">
+                <span class="text-[10px] text-slate-400 uppercase font-mono block">Annual ARPO</span>
+                <div id="out-funnel-arpo" class="text-base font-bold font-mono text-cyan-300 mt-0.5">$2,010</div>
+                <span class="text-[10px] text-cyan-400">ARR / Account</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800">
+                <span class="text-[10px] text-slate-400 uppercase font-mono block">Estimated LTV</span>
+                <div id="out-funnel-ltv" class="text-base font-bold font-mono text-emerald-400 mt-0.5">$14,357</div>
+                <span class="text-[10px] text-emerald-400">Lifetime Expected</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800">
+                <span class="text-[10px] text-slate-400 uppercase font-mono block">Payback (T-ROI)</span>
+                <div id="out-funnel-payback" class="text-base font-bold font-mono text-amber-400 mt-0.5">5.1 Mo</div>
+                <span id="out-funnel-badge" class="text-[10px] text-emerald-400 font-semibold">✨ World-Class</span>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+              <div class="flex items-center justify-between text-xs mb-2">
+                <span class="font-bold text-slate-300">Cumulative Cash Flow Curve (Months 0–24)</span>
+                <span class="text-[11px] text-emerald-400 font-mono">Net Profit Zone &gt; $0</span>
+              </div>
+              <div class="w-full h-44">
+                <canvas id="funnelPaybackCanvas"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Topic 1 Embedded Assistant -->
+      <section class="p-5 rounded-3xl bg-slate-900/70 border border-cyan-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center space-x-3">
+          <div class="h-10 w-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-lg">
+            💬
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white">Have questions about the 10-Stage Funnel or SaaS Metrics?</h4>
+            <p class="text-xs text-slate-400">Ask about MQL triggers, pull vs push bidding, or ARR vs Collections reconciliation.</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+          <button onclick="askTopicQuestion('funnel', 'What qualifies a lead as an MQL in Connecteam?')" class="px-3 py-1.5 rounded-xl text-xs bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 transition-all">
+            📱 What triggers an MQL?
+          </button>
+          <button onclick="askTopicQuestion('funnel', 'How is ARR normalized vs Collections?')" class="px-3 py-1.5 rounded-xl text-xs bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 transition-all">
+            📈 ARR vs Collections?
+          </button>
+          <button onclick="askTopicQuestion('funnel', 'Explain T-ROI and CAC Payback period')" class="px-3 py-1.5 rounded-xl text-xs bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 transition-all">
+            ⏱️ What is T-ROI?
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- TOPIC 2: PRODUCT ECOSYSTEM & 3 HUBS                                     -->
+    <!-- ======================================================================= -->
+    <div id="module-offering" class="space-y-10 hidden">
+      
+      <!-- Hero Banner -->
+      <section class="rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-slate-900/90 via-slate-950 to-blue-950/40 border border-slate-800 relative overflow-hidden shadow-2xl">
+        <div class="absolute -top-24 -right-24 w-80 h-80 bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div class="space-y-2 max-w-3xl">
+            <div class="inline-flex items-center space-x-2 text-xs font-mono font-bold text-blue-400 uppercase tracking-wider">
+              <span>Topic 2 of 3</span>
+              <span>&bull;</span>
+              <span>Product Architecture & Market Fit</span>
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-black text-white tracking-tight">The Deskless 80% & Modular Product Hubs</h2>
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+              70% to 80% of global workers have no corporate email and never touch a desk. Connecteam replaces fragmented WhatsApp groups, paper timesheets, and clipboards with 3 unified hubs in 1 mobile app.
+            </p>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-blue-500/30 flex items-center space-x-4 shrink-0">
+            <div class="relative w-20 h-20">
+              <canvas id="offeringDonutMini"></canvas>
+            </div>
+            <div class="text-xs space-y-1 font-mono">
+              <div class="text-cyan-400 font-bold">80% Non-Desk</div>
+              <div class="text-slate-500 text-[10px]">2.7 Billion Staff</div>
+              <div class="text-slate-400 text-[10px]">Baristas, guards, cleaners, techs</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 Core Hubs Interactive Showcase -->
+      <section class="space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white">The 3 Modular Product Hubs</h3>
+            <p class="text-xs text-slate-400">Click a hub to inspect its operational modules and real-time enterprise value.</p>
+          </div>
+          <div class="flex flex-wrap gap-2 p-1 bg-slate-950 border border-slate-800 rounded-2xl self-start sm:self-auto">
+            <button onclick="pickOfferingHub('operations')" id="hub-pill-operations" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all hub-pill-active flex items-center space-x-1.5">
+              <span>⚙️</span>
+              <span>Operations Hub</span>
+            </button>
+            <button onclick="pickOfferingHub('comms')" id="hub-pill-comms" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center space-x-1.5">
+              <span>💬</span>
+              <span>Communications Hub</span>
+            </button>
+            <button onclick="pickOfferingHub('hr')" id="hub-pill-hr" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center space-x-1.5">
+              <span>🎓</span>
+              <span>HR & Skills Hub</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="offering-hub-display" class="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-cyan-500/40 glow-cyan transition-all">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- 5 Pricing Tiers -->
+      <section class="space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white">5-Tier Pricing & Packaging Architecture</h3>
+            <p class="text-xs text-slate-400">Flat-fee tiers cover complete organizational needs with zero per-user adoption hesitation.</p>
+          </div>
+          <div class="flex items-center space-x-2 bg-slate-900 p-1.5 rounded-2xl border border-slate-800 text-xs">
+            <span class="text-slate-400 pl-2">Billing:</span>
+            <button onclick="setOfferingBilling('annual')" id="offering-bill-annual" class="px-3 py-1 rounded-xl font-bold bg-emerald-600 text-white shadow-sm transition-all">
+              Yearly (~18% Off + 30-Day Guarantee)
+            </button>
+            <button onclick="setOfferingBilling('monthly')" id="offering-bill-monthly" class="px-3 py-1 rounded-xl font-bold text-slate-400 hover:text-white transition-all">
+              Monthly
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
+          <!-- Free -->
+          <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 flex flex-col justify-between space-y-3">
+            <div>
+              <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-bold uppercase">Micro Teams</span>
+              <h4 class="text-sm font-bold text-white mt-1">Free Plan</h4>
+              <div class="text-xl font-mono font-bold text-white my-1">$0</div>
+              <p class="text-[11px] text-slate-400 mb-2">Up to 10 employees; basic clock & shift view.</p>
+              <ul class="text-[11px] text-slate-300 space-y-1">
+                <li class="flex items-center space-x-1"><span class="text-emerald-400 font-bold">✓</span><span>Basic mobile clock</span></li>
+                <li class="flex items-center space-x-1"><span class="text-emerald-400 font-bold">✓</span><span>Manual shift editing</span></li>
+                <li class="flex items-center space-x-1"><span class="text-rose-400 font-bold">✗</span><span class="text-slate-500">No shift templates</span></li>
+              </ul>
+            </div>
+            <div class="text-[10px] text-slate-500 border-t border-slate-800 pt-2">Local cafes & boutiques</div>
+          </div>
+
+          <!-- Basic -->
+          <div class="p-4 rounded-2xl bg-slate-950/80 border border-cyan-900/50 flex flex-col justify-between space-y-3">
+            <div>
+              <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 font-bold uppercase">Starter Hub</span>
+              <h4 class="text-sm font-bold text-white mt-1">Basic Plan</h4>
+              <div id="price-card-basic" class="text-xl font-mono font-bold text-cyan-400 my-1">$29 <span class="text-[10px] text-slate-400 font-normal">/mo</span></div>
+              <p class="text-[11px] text-slate-400 mb-2">First 30 users included + per seat growth.</p>
+              <ul class="text-[11px] text-slate-300 space-y-1">
+                <li class="flex items-center space-x-1"><span class="text-emerald-400 font-bold">✓</span><span>GPS Geofenced clock-in</span></li>
+                <li class="flex items-center space-x-1"><span class="text-emerald-400 font-bold">✓</span><span>Payroll Excel export</span></li>
+                <li class="flex items-center space-x-1"><span class="text-rose-400 font-bold">✗</span><span class="text-slate-500">No bulk actions</span></li>
+              </ul>
+            </div>
+            <div class="text-[10px] text-slate-500 border-t border-slate-800 pt-2">Single site crews</div>
+          </div>
+
+          <!-- Advanced -->
+          <div class="p-4 rounded-2xl bg-blue-950/20 border-2 border-blue-500/80 glow-blue flex flex-col justify-between space-y-3 relative">
+            <span class="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] font-black uppercase tracking-wider bg-blue-500 text-slate-950 px-2 py-0.5 rounded-full">POPULAR</span>
+            <div>
+              <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-blue-900/60 text-blue-300 font-bold uppercase">Scale Tools</span>
+              <h4 class="text-sm font-bold text-white mt-1">Advanced Plan</h4>
+              <div id="price-card-advanced" class="text-xl font-mono font-bold text-blue-300 my-1">$49 <span class="text-[10px] text-slate-400 font-normal">/mo</span></div>
+              <p class="text-[11px] text-slate-300 mb-2">Bulk power tools as teams grow &gt; 10 users.</p>
+              <ul class="text-[11px] text-slate-200 space-y-1">
+                <li class="flex items-center space-x-1"><span class="text-cyan-400 font-bold">✓</span><strong>Bulk schedule actions</strong></li>
+                <li class="flex items-center space-x-1"><span class="text-cyan-400 font-bold">✓</span><span>Recurring shift templates</span></li>
+                <li class="flex items-center space-x-1"><span class="text-cyan-400 font-bold">✓</span><span>Advanced user filtering</span></li>
+              </ul>
+            </div>
+            <div class="text-[10px] text-slate-400 border-t border-slate-800 pt-2">Multi-crew contractors</div>
+          </div>
+
+          <!-- Expert -->
+          <div class="p-4 rounded-2xl bg-slate-950/80 border border-purple-500/50 flex flex-col justify-between space-y-3">
+            <div>
+              <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-purple-950 text-purple-300 font-bold uppercase">Automations</span>
+              <h4 class="text-sm font-bold text-white mt-1">Expert Plan</h4>
+              <div id="price-card-expert" class="text-xl font-mono font-bold text-purple-400 my-1">$99 <span class="text-[10px] text-slate-400 font-normal">/mo</span></div>
+              <p class="text-[11px] text-slate-400 mb-2">Automated system reports sent to managers.</p>
+              <ul class="text-[11px] text-slate-300 space-y-1">
+                <li class="flex items-center space-x-1"><span class="text-purple-400 font-bold">✓</span><strong>Automated shift reports</strong></li>
+                <li class="flex items-center space-x-1"><span class="text-purple-400 font-bold">✓</span><span>Filtered manager digests</span></li>
+                <li class="flex items-center space-x-1"><span class="text-purple-400 font-bold">✓</span><span>Overtime compliance alerts</span></li>
+              </ul>
+            </div>
+            <div class="text-[10px] text-slate-500 border-t border-slate-800 pt-2">Multi-location fleets</div>
+          </div>
+
+          <!-- Enterprise -->
+          <div class="p-4 rounded-2xl bg-emerald-950/20 border-2 border-emerald-500/80 glow-emerald flex flex-col justify-between space-y-3">
+            <div>
+              <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 font-bold uppercase">100+ Seats</span>
+              <h4 class="text-sm font-bold text-white mt-1">Enterprise</h4>
+              <div class="text-lg sm:text-xl font-mono font-bold text-emerald-400 my-1">From $5,500 <span class="text-[10px] text-slate-400 font-normal">/yr</span></div>
+              <p class="text-[11px] text-slate-300 mb-2">Full platform access, custom SLAs & SSO.</p>
+              <ul class="text-[11px] text-slate-200 space-y-1">
+                <li class="flex items-center space-x-1"><span class="text-emerald-400 font-bold">✓</span><span>All current & future hubs</span></li>
+                <li class="flex items-center space-x-1"><span class="text-emerald-400 font-bold">✓</span><span>Dedicated Customer Success</span></li>
+                <li class="flex items-center space-x-1"><span class="text-emerald-400 font-bold">✓</span><span>Custom API integrations</span></li>
+              </ul>
+            </div>
+            <div class="text-[10px] text-slate-400 border-t border-slate-800 pt-2">Large healthcare & security</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Topic 2 Embedded Assistant -->
+      <section class="p-5 rounded-3xl bg-slate-900/70 border border-blue-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center space-x-3">
+          <div class="h-10 w-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-lg">
+            💬
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white">Curious about Hub Features or Pricing Tiers?</h4>
+            <p class="text-xs text-slate-400">Ask why Connecteam replaces WhatsApp, how digital checklists auto-email suppliers, or tier limits.</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+          <button onclick="askTopicQuestion('offering', 'Why use Connecteam chat instead of personal WhatsApp groups?')" class="px-3 py-1.5 rounded-xl text-xs bg-slate-800 hover:bg-slate-700 text-blue-300 border border-slate-700 transition-all">
+            💬 Chat vs WhatsApp?
+          </button>
+          <button onclick="askTopicQuestion('offering', 'What does the Operations Hub do?')" class="px-3 py-1.5 rounded-xl text-xs bg-slate-800 hover:bg-slate-700 text-blue-300 border border-slate-700 transition-all">
+            ⚙️ Operations Hub?
+          </button>
+          <button onclick="askTopicQuestion('offering', 'How does the HR Hub reduce turnover with rewards?')" class="px-3 py-1.5 rounded-xl text-xs bg-slate-800 hover:bg-slate-700 text-blue-300 border border-slate-700 transition-all">
+            🏆 Tokens & HR Hub?
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- TOPIC 3: TARGET MARKETS, PLG MOATS & ICP                                -->
+    <!-- ======================================================================= -->
+    <div id="module-markets" class="space-y-10 hidden">
+      
+      <!-- Hero Banner -->
+      <section class="rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-slate-900/90 via-slate-950 to-blue-950/40 border border-slate-800 relative overflow-hidden shadow-2xl">
+        <div class="absolute -top-24 -right-24 w-80 h-80 bg-cyan-600/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div class="space-y-2 max-w-3xl">
+            <div class="inline-flex items-center space-x-2 text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider">
+              <span>Topic 3 of 3</span>
+              <span>&bull;</span>
+              <span>GTM Strategy & Competitive Moats</span>
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-black text-white tracking-tight">Product-Led Growth (PLG) & The Frontline ICP</h2>
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+              In 2016–2018, less than 1% of VC funding went toward non-desk software. Connecteam exploited this blindspot by pioneering a self-serve PLG engine where <strong>80% of customers onboard zero-touch</strong>, creating an impenetrable cost and pricing moat against legacy sales-led competitors.
+            </p>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-950/85 border border-slate-800 shrink-0 w-full sm:w-64 space-y-2">
+            <div class="flex justify-between text-xs font-mono">
+              <span class="text-slate-400">The 2016–18 Blindspot</span>
+              <span class="text-cyan-400 font-bold">2.7B People</span>
+            </div>
+            <div class="h-28 w-full">
+              <canvas id="marketsFundingCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6 PLG Moats -->
+      <section class="space-y-4">
+        <div class="border-b border-slate-800 pb-3">
+          <h3 class="text-base font-bold text-white">How PLG Constructs Connecteam's Competitive Moat</h3>
+          <p class="text-xs text-slate-400">Why legacy sales-led enterprise vendors cannot afford to move down-market.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-cyan-400 font-bold text-xs">
+              <span>📉</span>
+              <h4>1. Low Operating Overhead & Price Points</h4>
+            </div>
+            <p class="text-[11px] text-slate-400">Eliminates heavy field sales commissions and onboarding consultants, allowing Connecteam to offer low, highly attractive prices.</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-blue-400 font-bold text-xs">
+              <span>🏷️</span>
+              <h4>2. Frictionless Flat-Fee Tiers</h4>
+            </div>
+            <p class="text-[11px] text-slate-400">Avoids punitive per-user charges that cause SMB managers to exclude part-time or seasonal crew members from the app.</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-emerald-400 font-bold text-xs">
+              <span>⚡</span>
+              <h4>3. 80% Zero-Touch Self-Serve</h4>
+            </div>
+            <p class="text-[11px] text-slate-400">Roughly 80% of customers register, invite their team, and purchase without ever speaking with a sales rep.</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-amber-400 font-bold text-xs">
+              <span>🏰</span>
+              <h4>4. The Low-Cost Competition Blocker</h4>
+            </div>
+            <p class="text-[11px] text-slate-400">Enterprise vendors burdened by large sales quotas lose money if they try to compete at Connecteam's efficient price points.</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-purple-400 font-bold text-xs">
+              <span>📱</span>
+              <h4>5. The iPhone Approach Scalability</h4>
+            </div>
+            <p class="text-[11px] text-slate-400">Single codebase serves 5 to 10,000 users. Simple consumer-grade defaults out of the box; modular power features unlocked on demand.</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+            <div class="flex items-center space-x-2 text-cyan-400 font-bold text-xs">
+              <span>🔄</span>
+              <h4>6. Feedback-Driven Roadmap Flywheel</h4>
+            </div>
+            <p class="text-[11px] text-slate-400">Massive SMB usage generates high review volume (G2/Capterra) and real-time user feedback that sharpens product iteration.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- iPhone Approach Scalability Sandbox -->
+      <section class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <span class="text-[10px] font-mono font-bold text-purple-400 uppercase">UNIFIED CODEBASE</span>
+            <h3 class="text-base sm:text-lg font-bold text-white mt-0.5">The "iPhone Approach" Scalability Demonstrator</h3>
+          </div>
+          <div class="text-xs font-mono text-cyan-300 bg-slate-950 p-2 rounded-xl border border-slate-800">
+            One Product Line: 5 to 10,000 Employees
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex justify-between items-center text-xs">
+            <span class="text-slate-300 font-medium">Select Organization Scale:</span>
+            <span id="scale-slider-badge" class="font-mono text-cyan-400 font-bold px-3 py-1 rounded-xl bg-slate-950 border border-cyan-800 text-xs">35 Employees (Growing Mid-Market)</span>
+          </div>
+          <input type="range" id="scale-slider" min="5" max="10000" step="10" value="35" class="w-full h-2 bg-slate-800 rounded-lg accent-cyan-500 cursor-pointer" oninput="runScalabilityDemo()">
+          
+          <div id="scale-demo-output" class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 5-Pillar ICP Diagnostic -->
+      <section class="space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white">Connecteam 5-Pillar ICP Diagnostic Matrix</h3>
+            <p class="text-xs text-slate-400">Score any prospect across the 5 characteristics of high-intent deskless organizations.</p>
+          </div>
+          <button onclick="resetICPEvaluator()" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all self-start sm:self-auto">
+            Reset Sample Profile
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-slate-800">
+          <div class="lg:col-span-7 space-y-3.5">
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 flex items-center justify-between gap-3">
+              <div class="space-y-0.5">
+                <span class="text-xs font-bold text-white">1. Distributed & Mobile Workforce</span>
+                <p class="text-[10px] text-slate-400">Staff spread across job sites, branches, or customer locations.</p>
+              </div>
+              <select id="icp-p1" onchange="runICPScore()" class="bg-slate-900 text-xs text-cyan-300 font-mono border border-slate-700 rounded-xl px-2.5 py-1.5">
+                <option value="20" selected>High (Multi-site/Field)</option>
+                <option value="10">Moderate (1-2 Branches)</option>
+                <option value="0">Low (Single Static Office)</option>
+              </select>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 flex items-center justify-between gap-3">
+              <div class="space-y-0.5">
+                <span class="text-xs font-bold text-white">2. High Employee Turnover Rate</span>
+                <p class="text-[10px] text-slate-400">Frequent hiring & paperwork. 5% turnover reduction pays for software.</p>
+              </div>
+              <select id="icp-p2" onchange="runICPScore()" class="bg-slate-900 text-xs text-cyan-300 font-mono border border-slate-700 rounded-xl px-2.5 py-1.5">
+                <option value="20" selected>High (&gt;40% Annual)</option>
+                <option value="10">Average (15–40%)</option>
+                <option value="0">Low (&lt;15% Annual)</option>
+              </select>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 flex items-center justify-between gap-3">
+              <div class="space-y-0.5">
+                <span class="text-xs font-bold text-white">3. Lean Management Layer</span>
+                <p class="text-[10px] text-slate-400">Few supervisors managing large crews (1:20 ratio); fast buying decisions.</p>
+              </div>
+              <select id="icp-p3" onchange="runICPScore()" class="bg-slate-900 text-xs text-cyan-300 font-mono border border-slate-700 rounded-xl px-2.5 py-1.5">
+                <option value="20" selected>Very Lean (1:20+)</option>
+                <option value="10">Moderate (1:10)</option>
+                <option value="0">Heavy Middle Mgmt</option>
+              </select>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 flex items-center justify-between gap-3">
+              <div class="space-y-0.5">
+                <span class="text-xs font-bold text-white">4. Non-Technological Frontline Staff</span>
+                <p class="text-[10px] text-slate-400">Use personal smartphones (BYOD); no corporate PCs or email addresses.</p>
+              </div>
+              <select id="icp-p4" onchange="runICPScore()" class="bg-slate-900 text-xs text-cyan-300 font-mono border border-slate-700 rounded-xl px-2.5 py-1.5">
+                <option value="20" selected>Frontline (BYOD)</option>
+                <option value="10">Mixed Literacy</option>
+                <option value="0">High Tech (Office PCs)</option>
+              </select>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 flex items-center justify-between gap-3">
+              <div class="space-y-0.5">
+                <span class="text-xs font-bold text-white">5. Minimal or Zero IT Department</span>
+                <p class="text-[10px] text-slate-400">Operations and HR managers self-administer tool directly without IT friction.</p>
+              </div>
+              <select id="icp-p5" onchange="runICPScore()" class="bg-slate-900 text-xs text-cyan-300 font-mono border border-slate-700 rounded-xl px-2.5 py-1.5">
+                <option value="20" selected>Zero IT Friction</option>
+                <option value="10">Part-Time IT</option>
+                <option value="0">Strict Enterprise IT/CIO</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 p-5 rounded-2xl bg-slate-950 border border-slate-800 flex flex-col justify-between text-center space-y-4">
+            <div>
+              <span class="text-[10px] font-mono uppercase text-slate-400">ICP FIT SCORE</span>
+              <div id="icp-final-score" class="text-5xl font-black font-mono text-emerald-400 my-2">100 / 100</div>
+              <div id="icp-score-badge">
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">
+                  🌟 Prime Tier-1 Customer Fit
+                </span>
+              </div>
+              <p id="icp-score-verdict" class="text-xs text-slate-300 mt-3 leading-relaxed">
+                Maximum fit for self-serve PLG adoption. With decentralized workers, high turnover, and zero IT gatekeepers, Connecteam delivers immediate operational ROI.
+              </p>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-900 text-[11px] text-slate-400 text-left border border-slate-800">
+              <strong class="text-cyan-300 block mb-0.5">Frontline BYOD Reality:</strong>
+              Field workers will not install 4 separate apps on personal devices. Consolidating into 1 single app is mandatory.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Topic 3 Embedded Assistant -->
+      <section class="p-5 rounded-3xl bg-slate-900/70 border border-cyan-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center space-x-3">
+          <div class="h-10 w-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-lg">
+            💬
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white">Have questions about PLG Moats & ICP Strategy?</h4>
+            <p class="text-xs text-slate-400">Ask about the 80% VC funding blindspot, the iPhone approach, or frontline BYOD dynamics.</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+          <button onclick="askTopicQuestion('markets', 'Why is 80% self-serve a competitive moat against legacy vendors?')" class="px-3 py-1.5 rounded-xl text-xs bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 transition-all">
+            🏰 The PLG Moat?
+          </button>
+          <button onclick="askTopicQuestion('markets', 'Explain the iPhone approach to software scalability')" class="px-3 py-1.5 rounded-xl text-xs bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 transition-all">
+            📱 The iPhone Approach?
+          </button>
+          <button onclick="askTopicQuestion('markets', 'Why did VC fund less than 1% of deskless software in 2016-2018?')" class="px-3 py-1.5 rounded-xl text-xs bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 transition-all">
+            📊 The 80% vs 1% Blindspot?
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 py-4 mt-8">
+    <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-400 font-mono">
+      Connecteam Executive Strategy Academy &bull; Complete Interactive Playbook for Employees & Leadership
+    </div>
+  </footer>
+
+  <!-- FLOATING PERSISTENT BOT LAUNCHER -->
+  <div class="floating-fab-container flex items-center space-x-3 pointer-events-auto">
+    <div id="bot-fab-tooltip" class="hidden sm:flex items-center px-3 py-1.5 rounded-full bg-slate-900/95 border border-cyan-500/40 text-xs font-semibold text-slate-200 shadow-2xl backdrop-blur-md">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 mr-2 animate-pulse"></span>
+      <span id="bot-fab-tooltip-text">Ask Strategy AI</span>
+    </div>
+
+    <button onclick="toggleGlobalBotDrawer()" id="bot-fab" aria-label="Toggle Global Strategy AI" title="Open Global Strategy AI Assistant"
+            class="relative group h-14 w-14 sm:h-16 sm:w-16 rounded-full bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-2xl shadow-cyan-500/60 hover:shadow-cyan-400/80 hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-cyan-300/50 backdrop-blur-xl">
+      <span class="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 opacity-50 blur-md group-hover:opacity-80 transition-opacity"></span>
+      
+      <div class="relative z-10 flex items-center justify-center">
+        <svg id="bot-fab-open-icon" class="w-6 h-6 sm:w-7 sm:h-7 text-white transition-transform duration-300 transform group-hover:scale-105" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+        </svg>
+        <svg id="bot-fab-close-icon" class="w-6 h-6 sm:w-7 sm:h-7 text-white hidden transition-transform duration-300 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </div>
+
+      <span class="absolute top-1 right-1 flex h-3.5 w-3.5 z-20">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-slate-950"></span>
+      </span>
+    </button>
+  </div>
+
+  <!-- SLIDE-OVER ASSISTANT DRAWER -->
+  <div id="bot-drawer-backdrop" onclick="toggleGlobalBotDrawer(false)" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+  <aside id="bot-drawer" class="fixed top-0 right-0 h-full w-full sm:w-[500px] bg-slate-950 border-l border-slate-800/90 z-50 flex flex-col shadow-2xl transform translate-x-full transition-transform duration-300 ease-out">
+    <div class="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/80 backdrop-blur-md">
+      <div class="flex items-center space-x-3">
+        <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/20">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center space-x-1.5">
+            <h3 class="text-sm font-bold text-white">Connecteam Master AI</h3>
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          </div>
+          <p id="bot-drawer-context" class="text-[11px] text-cyan-400 font-mono">Global Strategy Scope &bull; 3 Topics</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-1">
+        <button onclick="togglePinnedNotesTray()" title="View Pinned Notes" class="relative p-2 rounded-lg text-slate-400 hover:text-amber-400 hover:bg-slate-800 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+          </svg>
+          <span id="pinned-count-badge" class="hidden absolute -top-1 -right-1 h-4 w-4 rounded-full bg-amber-500 text-slate-950 font-mono font-bold text-[9px] flex items-center justify-center">0</span>
+        </button>
+        <button onclick="clearChatHistory()" title="Clear Chat" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+        </button>
+        <button onclick="toggleGlobalBotDrawer(false)" title="Close Panel (Esc)" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Pinned Tray -->
+    <div id="bot-pinned-tray" class="hidden border-b border-amber-500/30 bg-amber-950/20 p-3 space-y-2 max-h-52 overflow-y-auto">
+      <div class="flex items-center justify-between text-xs font-semibold text-amber-300">
+        <span class="flex items-center space-x-1.5">
+          <span>📌 Pinned Reference Notes</span>
+          <span id="bot-pinned-counter" class="text-[10px] font-mono text-amber-400 bg-amber-900/40 px-1.5 py-0.5 rounded">0</span>
+        </span>
+        <button onclick="togglePinnedNotesTray(false)" class="text-[10px] text-slate-400 hover:text-white">Hide</button>
+      </div>
+      <div id="bot-pinned-list" class="space-y-2 text-xs">
+        <div class="text-[11px] text-slate-400 italic">No pinned answers yet. Click the pin icon (📌) on any bot response to bookmark it here for quick reference!</div>
+      </div>
+    </div>
+
+    <!-- Dynamic Quick Chips -->
+    <div id="bot-quick-chips" class="px-4 py-2.5 bg-slate-900/40 border-b border-slate-800/60 overflow-x-auto flex space-x-2 scrollbar-none text-xs">
+      <!-- Injected by JS -->
+    </div>
+
+    <!-- Chat Messages -->
+    <div id="bot-chat-stream" class="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 text-xs">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Input Form -->
+    <div class="p-3.5 sm:p-4 border-t border-slate-800 bg-slate-900/90 backdrop-blur-md">
+      <form id="bot-chat-form" onsubmit="handleBotFormSubmit(event)" class="flex items-center space-x-2">
+        <input type="text" id="bot-chat-input" placeholder="Ask about metrics, product hubs, PLG moats, ICP..." 
+               class="flex-1 bg-slate-950 border border-slate-700/80 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500">
+        <button type="submit" class="h-10 w-10 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white flex items-center justify-center shadow-md shadow-cyan-500/20 shrink-0 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+          </svg>
+        </button>
+      </form>
+      <div class="text-[10px] text-slate-400 text-center mt-2 font-mono">
+        Master Knowledge Base &bull; Grounded in All 3 Connecteam Executive Playbooks
+      </div>
+    </div>
+  </aside>
+
+  <!-- JAVASCRIPT MASTER LOGIC -->
+  <script>
+    let currentMasterTopic = 'funnel';
+    let isGlobalBotOpen = false;
+    let pinnedNotes = [];
+    let paybackChartInstance = null;
+    let offeringDonutInstance = null;
+    let marketsFundingInstance = null;
+
+    function switchMasterTopic(topicKey) {
+      currentMasterTopic = topicKey;
+      ['funnel', 'offering', 'markets'].forEach(t => {
+        const mod = document.getElementById('module-' + t);
+        const deskNav = document.getElementById('tab-nav-' + t);
+        const mobNav = document.getElementById('mob-nav-' + t);
+
+        if (t === topicKey) {
+          mod.classList.remove('hidden');
+          if (deskNav) deskNav.className = "px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all nav-tab-active flex items-center space-x-2";
+          if (mobNav) mobNav.className = "whitespace-nowrap px-3 py-1.5 text-xs font-bold rounded-xl bg-cyan-600 text-white shrink-0";
+        } else {
+          mod.classList.add('hidden');
+          if (deskNav) deskNav.className = "px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all text-slate-400 hover:text-white flex items-center space-x-2 border border-transparent";
+          if (mobNav) mobNav.className = "whitespace-nowrap px-3 py-1.5 text-xs font-medium rounded-xl bg-slate-800 text-slate-300 shrink-0";
+        }
+      });
+
+      updateBotDrawerContext();
+
+      setTimeout(() => {
+        if (topicKey === 'funnel' && paybackChartInstance) paybackChartInstance.resize();
+        if (topicKey === 'offering' && offeringDonutInstance) offeringDonutInstance.resize();
+        if (topicKey === 'markets' && marketsFundingInstance) marketsFundingInstance.resize();
+      }, 50);
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- Module 1 Data ---
+    const funnelStagesData = [
+      {
+        id: 1, title: "Intent & Demand Generation", sub: "Pull Intent vs. Push Demand Channels", type: "Pre-Conversion", icon: "🧭",
+        summary: "Differentiates searchers with active operational pain (Pull) from passive deskless managers educated through video ads (Push).",
+        points: [
+          { title: "Pull Search (Google/Bing):", text: "Keywords like 'employee shift schedule app'. High CPC ($6–$25+), but urgent intent." },
+          { title: "Push Broadcast (Meta/YouTube):", text: "Relatable ads depicting whiteboard chaos and WhatsApp arguments. Lower CPC ($0.80–$3.50)." }
+        ],
+        kpi: "Blended CPC, Search Impression Share", risk: "Targeting ultra-broad corporate keywords burns ad spend without attracting frontline managers."
+      },
+      {
+        id: 2, title: "Impressions", sub: "Audience Reach & Media Delivery", type: "Pre-Conversion", icon: "👁️",
+        summary: "Ad visibility across mobile social feeds, search result pages, and billboards measured by Cost Per Mille (CPM).",
+        points: [
+          { title: "Impression Delivery:", text: "Bidding algorithms optimize delivery based on historical CTR and relevance scores." },
+          { title: "Frequency Capping:", text: "Limits views to 3–5 impressions per week to prevent brand fatigue." }
+        ],
+        kpi: "CPM ($), Total Audience Reach", risk: "Audience fatigue caused by lack of creative rotation."
+      },
+      {
+        id: 3, title: "Clicks (CPC / PPC)", sub: "Auction Traffic Routing", type: "Pre-Conversion", icon: "🖱️",
+        summary: "Deliberate user engagement incurring a Cost Per Click (CPC) charge. Every click must route to a matching landing page.",
+        points: [
+          { title: "PPC Math:", text: "CPC = Total Spend ÷ Total Clicks. Driven by competitive bidding and ad CTR." },
+          { title: "Negative Keywords:", text: "Excluding 'free software', 'open jobs', 'salary' to block wasteful non-buyer clicks." }
+        ],
+        kpi: "Click-Through Rate (CTR 2.5%–5%), Blended CPC", risk: "Unfiltered negative keywords allowing job seekers to burn paid budget."
+      },
+      {
+        id: 4, title: "Landing & Engagement", sub: "Hero Value & CTA Triggers", type: "Pre-Conversion", icon: "🛬",
+        summary: "The prospect arrives on the landing page. Must deliver immediate message match with 'Start Free Trial — No Credit Card Required'.",
+        points: [
+          { title: "Dynamic Personalization:", text: "Security contractors see security guard badges; restaurants see barista shift schedules." },
+          { title: "Trust Proof:", text: "4.8/5 on Capterra, 36,000+ companies worldwide, and SOC-2 compliance badges." }
+        ],
+        kpi: "Landing Page Conversion Rate (>12%)", risk: "Slow mobile loading speeds (>2.5s) causing immediate abandonment."
+      },
+      {
+        id: 5, title: "Leads (Initial Details)", sub: "Micro-Conversion Identity Capture", type: "Pre-Conversion", icon: "📋",
+        summary: "User inputs first name, last name, and work email. No credit card is requested to minimize friction.",
+        points: [
+          { title: "1-Click Social Sign-in:", text: "Offering Google and Apple SSO to accelerate contact completion in seconds." },
+          { title: "15-Minute Recovery:", text: "Automated email sequences instantly re-engage users who enter an email but pause setup." }
+        ],
+        kpi: "Form Start-to-Complete (>75%), CPL", risk: "Asking for credit card credentials too early reduces lead yield by over 70%."
+      },
+      {
+        id: 6, title: "Sign-up & Needs Profiling", sub: "Company Profiling & Hub Routing", type: "Pre-Conversion", icon: "✍️",
+        summary: "User specifies team size and primary focus (Time Clock, Scheduling, Chat, Forms). Account automatically segments.",
+        points: [
+          { title: "Workspace Configuration:", text: "The app dashboard self-customizes to the user's primary selected pain point." },
+          { title: "Enterprise Routing:", text: "Accounts with >50 users instantly trigger an alert in CRM for SDR outreach." }
+        ],
+        kpi: "Sign-up Completion %", risk: "Excessive questionnaire questions creating setup fatigue."
+      },
+      {
+        id: 7, title: "Marketing Qualified Lead (MQL)", sub: "Cross-Device Trigger", type: "Pre-Conversion", icon: "📱",
+        summary: "True intent is proven when a desktop admin scans the QR code, downloads the mobile app, and invites frontline staff.",
+        points: [
+          { title: "The Cross-Device Catalyst:", text: "Desktop Admin -> Installs Mobile App -> Tests employee clock-in workflow." },
+          { title: "Why it Defines MQL:", text: "Desktop-only signups churn at 90%. Users who complete mobile pairing convert 5x more often." }
+        ],
+        kpi: "Cross-Device Pairing Rate", risk: "Admin signs up on PC but never pairs smartphone or invites field staff."
+      },
+      {
+        id: 8, title: "14-Day Free Trial", sub: "Product Qualified Sandbox (PQL)", type: "Pre-Conversion", icon: "⏳",
+        summary: "Unrestricted sandbox access to experience publishing a shift schedule, GPS clock-ins, and broadcast updates.",
+        points: [
+          { title: "Aha Moment Trigger:", text: "First published shift schedule read by 3+ employees locks operational stickiness." },
+          { title: "In-App Guidance:", text: "Contextual onboarding tooltips and live chat assist admins on Day 3, 7, and 11." }
+        ],
+        kpi: "Trial-to-Paid Conversion (15%–25%)", risk: "Team invites remaining unaccepted by frontline crew members."
+      },
+      {
+        id: 9, title: "Paid Conversion", sub: "Monthly vs. Discounted Annual", type: "Post-Conversion", icon: "💳",
+        summary: "Customer selects their package. Choosing the discounted annual plan lowers annualized churn.",
+        points: [
+          { title: "Annual Incentive:", text: "Offering ~18% savings for upfront annual commitment accelerates company cash collection." },
+          { title: "Seamless In-App Upgrade:", text: "Self-serve credit card swiping allows instant activation without speaking to sales." }
+        ],
+        kpi: "New Booked ARR, Annual Ratio (>55%)", risk: "Failing to highlight annual discount savings leads to higher monthly churn."
+      },
+      {
+        id: 10, title: "Collections", sub: "Realized Cash Deposited in Bank", type: "Post-Conversion", icon: "🏦",
+        summary: "The final step converts committed ARR into actual money in Connecteam's bank accounts via payment gateways.",
+        points: [
+          { title: "Payment Rails:", text: "Stripe recurring billing for SMBs; ACH and purchase orders for enterprise tiers." },
+          { title: "Involuntary Churn Defense:", text: "Automated card retry logic and pre-expiration alerts prevent accidental cancellations." }
+        ],
+        kpi: "Collection Efficiency Rate, Involuntary Churn %", risk: "Expired credit cards causing uncollected accounts."
+      }
+    ];
+
+    function pickFunnelStage(stageId) {
+      const data = funnelStagesData[stageId - 1];
+      for (let i = 1; i <= 10; i++) {
+        const btn = document.getElementById('f-step-' + i);
+        if (i === stageId) {
+          btn.className = (i >= 9) 
+            ? "p-2.5 rounded-xl border border-emerald-500 bg-slate-900/95 transition-all post-step-active"
+            : "p-2.5 rounded-xl border border-cyan-500 bg-slate-900/95 transition-all funnel-step-active";
+        } else {
+          btn.className = "p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 transition-all hover:border-slate-700";
+        }
+      }
+
+      const container = document.getElementById('funnel-stage-detail');
+      const isPost = data.type === 'Post-Conversion';
+      const accentText = isPost ? 'text-emerald-400' : 'text-cyan-400';
+      const badgeBg = isPost ? 'bg-emerald-950 text-emerald-300 border-emerald-800' : 'bg-cyan-950 text-cyan-300 border-cyan-800';
+
+      container.innerHTML = `
+        <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
+          <div class="space-y-3 max-w-3xl">
+            <div class="flex items-center space-x-2">
+              <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded border ${badgeBg}">
+                Stage ${data.id.toString().padStart(2, '0')} of 10 &bull; ${data.type}
+              </span>
+              <span class="text-xs font-mono text-slate-400 font-semibold">${data.sub}</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <span class="text-3xl">${data.icon}</span>
+              <h4 class="text-xl font-black text-white">${data.title}</h4>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">${data.summary}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              ${data.points.map(p => `
+                <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800">
+                  <h6 class="font-bold ${accentText} text-xs mb-1">${p.title}</h6>
+                  <p class="text-[11px] text-slate-300 leading-normal">${p.text}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          <div class="lg:w-72 shrink-0 p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+            <div>
+              <span class="text-[10px] uppercase font-mono text-slate-400 block">Core KPI Tracked</span>
+              <div class="text-xs font-mono ${accentText} font-bold mt-0.5">${data.kpi}</div>
+            </div>
+            <div class="border-t border-slate-800 pt-2">
+              <span class="text-[10px] uppercase font-mono text-rose-400 block">Primary Drop-off Risk</span>
+              <p class="text-[11px] text-slate-400 mt-0.5">${data.risk}</p>
+            </div>
+            <div class="pt-2 flex justify-between">
+              <button onclick="pickFunnelStage(${Math.max(1, stageId - 1)})" ${stageId === 1 ? 'disabled class="opacity-30 cursor-not-allowed"' : ''} class="px-3 py-1 rounded-lg text-xs bg-slate-800 text-slate-300 hover:text-white">&larr; Prev</button>
+              <button onclick="pickFunnelStage(${Math.min(10, stageId + 1)})" ${stageId === 10 ? 'disabled class="opacity-30 cursor-not-allowed"' : ''} class="px-3 py-1 rounded-lg text-xs bg-cyan-600 text-white font-medium hover:bg-cyan-500">Next &rarr;</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function runFunnelCalc() {
+      const seats = parseFloat(document.getElementById('calc-seats').value);
+      const price = parseFloat(document.getElementById('calc-price').value);
+      const hubs = parseFloat(document.getElementById('calc-hubs').value);
+      const cac = parseFloat(document.getElementById('calc-cac').value);
+      const churn = parseFloat(document.getElementById('calc-churn').value) / 100;
+
+      document.getElementById('calc-seats-lbl').innerText = seats + " Seats";
+      document.getElementById('calc-price-lbl').innerText = "$" + price.toFixed(2) + " / seat";
+      document.getElementById('calc-hubs-lbl').innerText = "+$" + hubs + " / mo";
+      document.getElementById('calc-cac-lbl').innerText = "$" + cac.toLocaleString();
+      document.getElementById('calc-churn-lbl').innerText = (churn * 100).toFixed(0) + "% / yr";
+
+      const mrr = (seats * price) + hubs;
+      const arpo = mrr * 12;
+      const ltv = churn > 0 ? (arpo / churn) : 0;
+      const payback = mrr > 0 ? (cac / mrr) : 0;
+
+      document.getElementById('out-funnel-mrr').innerText = "$" + mrr.toFixed(2);
+      document.getElementById('out-funnel-arpo').innerText = "$" + Math.round(arpo).toLocaleString();
+      document.getElementById('out-funnel-ltv').innerText = "$" + Math.round(ltv).toLocaleString();
+      document.getElementById('out-funnel-payback').innerText = payback.toFixed(1) + " Mo";
+
+      const badge = document.getElementById('out-funnel-badge');
+      if (payback <= 8) {
+        badge.className = "text-[10px] text-emerald-400 font-semibold";
+        badge.innerText = "✨ World-Class (< 8 mo)";
+      } else if (payback <= 14) {
+        badge.className = "text-[10px] text-cyan-400 font-semibold";
+        badge.innerText = "👍 Healthy Standard";
+      } else {
+        badge.className = "text-[10px] text-amber-400 font-semibold";
+        badge.innerText = "⚠️ High Payback (> 14 mo)";
+      }
+
+      if (paybackChartInstance) {
+        const months = [0, 3, 6, 9, 12, 18, 24];
+        paybackChartInstance.data.datasets[0].data = months.map(m => -cac + (mrr * m));
+        paybackChartInstance.update();
+      }
+    }
+
+    function resetFunnelSimulator() {
+      document.getElementById('calc-seats').value = 35;
+      document.getElementById('calc-price').value = 3.5;
+      document.getElementById('calc-hubs').value = 45;
+      document.getElementById('calc-cac').value = 850;
+      document.getElementById('calc-churn').value = 14;
+      runFunnelCalc();
+    }
+
+    function initPaybackChart() {
+      const ctx = document.getElementById('funnelPaybackCanvas');
+      if (!ctx) return;
+      paybackChartInstance = new Chart(ctx.getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: ['M0', 'M3', 'M6', 'M9', 'M12', 'M18', 'M24'],
+          datasets: [
+            {
+              label: 'Cumulative Cash Flow ($)',
+              data: [-850, -347, 155, 657, 1160, 2165, 3170],
+              borderColor: '#10b981',
+              backgroundColor: 'rgba(16, 185, 129, 0.1)',
+              borderWidth: 2.5,
+              fill: true,
+              tension: 0.35,
+              pointBackgroundColor: '#10b981',
+              pointRadius: 3.5
+            },
+            {
+              label: 'Zero Breakeven',
+              data: [0, 0, 0, 0, 0, 0, 0],
+              borderColor: 'rgba(255, 255, 255, 0.2)',
+              borderWidth: 1.5,
+              borderDash: [3, 3],
+              pointRadius: 0
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8', font: { size: 9 } } },
+            y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8', font: { size: 9 }, callback: v => '$' + v } }
+          }
+        }
+      });
+    }
+
+    // --- Module 2 Data ---
+    const offeringHubsData = {
+      operations: {
+        title: "Operations Hub", badge: "Field Execution & Shifts", icon: "⚙️",
+        summary: "Automates shift scheduling, GPS geofenced time clocks, quick tasks, and digital checklists with auto-dispatch to suppliers.",
+        modules: [
+          { name: "Shift & Job Scheduling", icon: "📅", text: "Drag-and-drop live shifts with open shift claiming. Supports shift-based rosters (cafes, retail) and mobile job dispatching (elevator technicians)." },
+          { name: "GPS Geofenced Time Clock", icon: "⏱️", text: "Employees clock in/out on smartphones. Geofencing perimeter ensures workers are on site; auto-calculates overtime for payroll compliance." },
+          { name: "Forms & Checklists with Auto-Email", icon: "📋", text: "Opening/closing checklists and incident reports with automated PDF email attachments to external suppliers." },
+          { name: "Quick Tasks", icon: "✅", text: "Allows managers to assign one-off or daily recurring tasks directly from mobile with photo proof of completion." }
+        ],
+        verticals: "Security guards, construction sites, restaurants, technicians, cleaners."
+      },
+      comms: {
+        title: "Communications Hub", badge: "Dedicated Work Connection", icon: "💬",
+        summary: "Isolates work interactions from personal WhatsApp groups, ensuring professional boundaries, company-wide alignment, and read receipts.",
+        modules: [
+          { name: "Dedicated Work Chat", icon: "💬", text: "Closed, private messenger. Workers don't need to exchange personal phone numbers, protecting personal time." },
+          { name: "Company Updates Feed", icon: "📢", text: "Broadcast feed for official announcements with real-time read receipts so managers verify who saw policy changes." },
+          { name: "Secure Employee Directory", icon: "👥", text: "Internal contact list. Phone numbers aren't saved to personal devices, and access is revoked automatically upon termination." },
+          { name: "Knowledge Base & Mobile SOPs", icon: "📚", text: "Instant pocket access to safety guidelines, equipment manuals, and training handbooks directly on the employee's phone." }
+        ],
+        verticals: "Retail chains, hospitality, hotel housekeeping, event security, clinics."
+      },
+      hr: {
+        title: "HR & Skills Hub", badge: "Retention & Digital Onboarding", icon: "🎓",
+        summary: "Reduces frontline turnover with digital coin incentives, eliminates paper filing folders with mobile onboarding, and digitizes training.",
+        modules: [
+          { name: "Recognitions & Digital Token Rewards", icon: "🏆", text: "Public appreciation posts and digital coins awarded to staff for taking difficult shifts, redeemable for rewards." },
+          { name: "Paperless Onboarding & Document Vault", icon: "📁", text: "New hires upload IDs and digitally sign W-4 tax forms and safety agreements from their phone before Day 1." },
+          { name: "Mobile Video Courses & Quizzes", icon: "📱", text: "Replaces long classroom lectures with bite-sized mobile video lessons, safety compliance checks, and interactive scoring." }
+        ],
+        verticals: "High-turnover sectors: food & beverage, nursing, warehouse logistics."
+      }
+    };
+
+    function pickOfferingHub(hubKey) {
+      const data = offeringHubsData[hubKey];
+      ['operations', 'comms', 'hr'].forEach(k => {
+        const pill = document.getElementById('hub-pill-' + k);
+        if (pill) {
+          pill.className = (k === hubKey)
+            ? "px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all hub-pill-active flex items-center space-x-1.5"
+            : "px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center space-x-1.5";
+        }
+      });
+
+      const display = document.getElementById('offering-hub-display');
+      display.className = `p-6 sm:p-8 rounded-3xl bg-slate-900/90 border ${hubKey === 'operations' ? 'border-cyan-500/40 glow-cyan' : (hubKey === 'comms' ? 'border-blue-500/40 glow-blue' : 'border-purple-500/40 glow-purple')} transition-all`;
+      display.innerHTML = `
+        <div class="space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+            <div class="flex items-center space-x-3">
+              <span class="text-3xl">${data.icon}</span>
+              <div>
+                <div class="flex items-center space-x-2">
+                  <h4 class="text-xl font-black text-white">${data.title}</h4>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">${data.badge}</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-0.5">${data.summary}</p>
+              </div>
+            </div>
+            <div class="text-[11px] text-slate-400 bg-slate-950 p-2.5 rounded-xl border border-slate-800 shrink-0">
+              <span class="text-white font-bold block">Prime Verticals:</span>
+              <span>${data.verticals}</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+            ${data.modules.map(m => `
+              <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-1.5">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg">${m.icon}</span>
+                  <h5 class="font-bold text-white text-xs">${m.name}</h5>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-relaxed">${m.text}</p>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function setOfferingBilling(cycle) {
+      const btnA = document.getElementById('offering-bill-annual');
+      const btnM = document.getElementById('offering-bill-monthly');
+      const pBasic = document.getElementById('price-card-basic');
+      const pAdv = document.getElementById('price-card-advanced');
+      const pExp = document.getElementById('price-card-expert');
+
+      if (cycle === 'annual') {
+        btnA.className = "px-3 py-1 rounded-xl font-bold bg-emerald-600 text-white shadow-sm transition-all";
+        btnM.className = "px-3 py-1 rounded-xl font-bold text-slate-400 hover:text-white transition-all";
+        pBasic.innerHTML = '$29 <span class="text-[10px] text-slate-400 font-normal">/mo (annual)</span>';
+        pAdv.innerHTML = '$49 <span class="text-[10px] text-slate-400 font-normal">/mo (annual)</span>';
+        pExp.innerHTML = '$99 <span class="text-[10px] text-slate-400 font-normal">/mo (annual)</span>';
+      } else {
+        btnM.className = "px-3 py-1 rounded-xl font-bold bg-emerald-600 text-white shadow-sm transition-all";
+        btnA.className = "px-3 py-1 rounded-xl font-bold text-slate-400 hover:text-white transition-all";
+        pBasic.innerHTML = '$35 <span class="text-[10px] text-slate-400 font-normal">/mo (monthly)</span>';
+        pAdv.innerHTML = '$59 <span class="text-[10px] text-slate-400 font-normal">/mo (monthly)</span>';
+        pExp.innerHTML = '$119 <span class="text-[10px] text-slate-400 font-normal">/mo (monthly)</span>';
+      }
+    }
+
+    function initOfferingDonut() {
+      const ctx = document.getElementById('offeringDonutMini');
+      if (!ctx) return;
+      offeringDonutInstance = new Chart(ctx.getContext('2d'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Deskless (80%)', 'Desk/Office (20%)'],
+          datasets: [{ data: [80, 20], backgroundColor: ['#0284c7', '#1e293b'], borderWidth: 0 }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '72%',
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    // --- Module 3 Data ---
+    function initMarketsFundingChart() {
+      const ctx = document.getElementById('marketsFundingCanvas');
+      if (!ctx) return;
+      marketsFundingInstance = new Chart(ctx.getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: ['Workforce', 'VC Funding (2016-18)'],
+          datasets: [
+            { label: 'Deskless', data: [80, 1], backgroundColor: '#06b6d4', borderRadius: 4 },
+            { label: 'Desk/Office', data: [20, 99], backgroundColor: '#334155', borderRadius: 4 }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { stacked: true, grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 9 } } },
+            y: { stacked: true, max: 100, display: false }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    function runScalabilityDemo() {
+      const val = parseInt(document.getElementById('scale-slider').value, 10);
+      const badge = document.getElementById('scale-slider-badge');
+      const out = document.getElementById('scale-demo-output');
+
+      let category = "";
+      let features = [];
+
+      if (val <= 15) {
+        category = "Micro Business (Boutique Cafe, Local Cleaners)";
+        badge.innerText = `${val} Users (Micro SMB)`;
+        features = ["Manual shift edits", "Basic GPS mobile time clock", "Free tier ($0) or Basic flat-rate"];
+      } else if (val <= 150) {
+        category = "Growing SMB & Mid-Market (Contractor, Security Fleet)";
+        badge.innerText = `${val} Users (Growing Mid-Market)`;
+        features = ["Bulk shift publishing & copy templates", "Geofencing perimeter alerts", "Supplier auto-email triggers on forms"];
+      } else if (val <= 1500) {
+        category = "Multi-Branch Commercial (Regional Hotels, Healthcare)";
+        badge.innerText = `${val} Users (Multi-Branch Fleet)`;
+        features = ["Branch hierarchy management", "Automated supervisor audit digests", "Integrated payroll software syncing"];
+      } else {
+        category = "Global Enterprise (Nationwide Retail, Facility Services)";
+        badge.innerText = `${val.toLocaleString()} Users (Enterprise Scale)`;
+        features = ["SAML / SSO governance", "Dedicated Customer Success & SLAs", "Custom enterprise contract ($5,500+/yr)"];
+      }
+
+      out.innerHTML = `
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <span class="text-[10px] uppercase font-mono text-slate-400 block">Tier Profile</span>
+            <div class="font-bold text-white text-xs mt-0.5">${category}</div>
+          </div>
+          <div class="sm:col-span-2 space-y-1">
+            <span class="text-[10px] uppercase font-mono text-slate-400 block">Unlocked in Unified App (Zero Forked Code)</span>
+            <div class="flex flex-wrap gap-2 text-[11px] text-cyan-300">
+              ${features.map(f => `<span class="bg-slate-900 border border-slate-800 px-2 py-0.5 rounded">✓ ${f}</span>`).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function runICPScore() {
+      const p1 = parseInt(document.getElementById('icp-p1').value, 10);
+      const p2 = parseInt(document.getElementById('icp-p2').value, 10);
+      const p3 = parseInt(document.getElementById('icp-p3').value, 10);
+      const p4 = parseInt(document.getElementById('icp-p4').value, 10);
+      const p5 = parseInt(document.getElementById('icp-p5').value, 10);
+
+      const total = p1 + p2 + p3 + p4 + p5;
+      const scoreDisp = document.getElementById('icp-final-score');
+      const badgeBox = document.getElementById('icp-score-badge');
+      const verdict = document.getElementById('icp-score-verdict');
+
+      scoreDisp.innerText = `${total} / 100`;
+
+      if (total >= 80) {
+        scoreDisp.className = "text-5xl font-black font-mono text-emerald-400 my-2";
+        badgeBox.innerHTML = `<span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">🌟 Prime Tier-1 Customer Fit</span>`;
+        verdict.innerText = "Maximum fit for self-serve PLG adoption. Decentralized workers, high turnover, and zero IT gatekeepers give immediate ROI.";
+      } else if (total >= 50) {
+        scoreDisp.className = "text-5xl font-black font-mono text-cyan-400 my-2";
+        badgeBox.innerHTML = `<span class="px-3 py-1 rounded-full text-xs font-bold bg-cyan-950 text-cyan-300 border border-cyan-800">👍 Qualified Segment Fit</span>`;
+        verdict.innerText = "Strong candidate for targeted hubs (Operations or Comms). Partially distributed teams will benefit from mobile timesheets.";
+      } else {
+        scoreDisp.className = "text-5xl font-black font-mono text-rose-400 my-2";
+        badgeBox.innerHTML = `<span class="px-3 py-1 rounded-full text-xs font-bold bg-rose-950 text-rose-300 border border-rose-800">⚠️ Low Fit / Traditional Office</span>`;
+        verdict.innerText = "Mirrors a desk-bound office with corporate emails and heavy IT governance. Traditional tools like Slack are better suited.";
+      }
+    }
+
+    function resetICPEvaluator() {
+      document.getElementById('icp-p1').value = "20";
+      document.getElementById('icp-p2').value = "20";
+      document.getElementById('icp-p3').value = "20";
+      document.getElementById('icp-p4').value = "20";
+      document.getElementById('icp-p5').value = "20";
+      runICPScore();
+    }
+
+    // --- AI Assistant Logic ---
+    function toggleGlobalBotDrawer(forceState) {
+      const drawer = document.getElementById('bot-drawer');
+      const backdrop = document.getElementById('bot-drawer-backdrop');
+      const input = document.getElementById('bot-chat-input');
+      const openIcon = document.getElementById('bot-fab-open-icon');
+      const closeIcon = document.getElementById('bot-fab-close-icon');
+      const tooltip = document.getElementById('bot-fab-tooltip');
+      const fabBtn = document.getElementById('bot-fab');
+
+      const shouldOpen = typeof forceState === 'boolean' ? forceState : !isGlobalBotOpen;
+      isGlobalBotOpen = shouldOpen;
+
+      if (shouldOpen) {
+        backdrop.classList.remove('opacity-0', 'pointer-events-none');
+        backdrop.classList.add('opacity-100');
+        drawer.classList.remove('translate-x-full');
+        drawer.classList.add('translate-x-0');
+        openIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden', 'rotate-90');
+        if (tooltip) tooltip.innerHTML = `<span class="text-xs font-semibold text-slate-300">Close AI (Esc)</span>`;
+        if (fabBtn) fabBtn.setAttribute('title', 'Close AI Assistant (Esc)');
+        setTimeout(() => input.focus(), 250);
+      } else {
+        backdrop.classList.remove('opacity-100');
+        backdrop.classList.add('opacity-0', 'pointer-events-none');
+        drawer.classList.remove('translate-x-0');
+        drawer.classList.add('translate-x-full');
+        closeIcon.classList.add('hidden', 'rotate-90');
+        openIcon.classList.remove('hidden');
+        if (tooltip) tooltip.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 mr-2 animate-pulse"></span><span>Ask Strategy AI</span>`;
+        if (fabBtn) fabBtn.setAttribute('title', 'Open Strategy AI Assistant');
+      }
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && isGlobalBotOpen) toggleGlobalBotDrawer(false);
+    });
+
+    function updateBotDrawerContext() {
+      const contextEl = document.getElementById('bot-drawer-context');
+      const chipsEl = document.getElementById('bot-quick-chips');
+
+      if (currentMasterTopic === 'funnel') {
+        contextEl.innerText = "Scope: 1. Funnel & SaaS Metrics Engine";
+        chipsEl.innerHTML = `
+          <button onclick="sendQuickPrompt('What is ARR and how is it normalized?')" class="whitespace-nowrap px-3 py-1 rounded-full bg-slate-800 text-cyan-300 text-[11px] border border-slate-700 hover:border-cyan-500">📈 What is ARR?</button>
+          <button onclick="sendQuickPrompt('What triggers an MQL in Connecteam?')" class="whitespace-nowrap px-3 py-1 rounded-full bg-slate-800 text-amber-300 text-[11px] border border-slate-700 hover:border-amber-500">📱 Cross-Device MQL?</button>
+          <button onclick="sendQuickPrompt('Explain T-ROI and CAC Payback period')" class="whitespace-nowrap px-3 py-1 rounded-full bg-slate-800 text-emerald-300 text-[11px] border border-slate-700 hover:border-emerald-500">⏱️ What is T-ROI?</button>
+          <button onclick="sendQuickPrompt('What is the difference between Pull and Push channels?')" class="whitespace-nowrap px-3 py-1 rounded-full bg-slate-800 text-blue-300 text-[11px] border border-slate-700 hover:border-blue-500">🎯 Pull vs Push?</button>
+        `;
+      } else if (currentMasterTopic === 'offering') {
+        contextEl.innerText = "Scope: 2. Product Offering & Ecosystem";
+        chipsEl.innerHTML = `
+          <button onclick="sendQuickPrompt('What does the Operations Hub include?')" class="whitespace-nowrap px-3 py-1 rounded-full bg-slate-800 text-cyan-300 text-[11px] border border-slate-700 hover:border-cyan-500">⚙️ Operations Hub?</button>
+          <button onclick="sendQuickPrompt('Why use Connecteam chat instead of personal WhatsApp groups?')" class="whitespace-nowrap px-3 py-1 rounded-full bg-slate-800 text-blue-300 text-[11px] border border-slate-700 hover:border-blue-500">💬 Chat vs WhatsApp?</button>
+          <button onclick="sendQuickPrompt('How do Recognitions & Coins work in the HR Hub?')" class="whitespace-nowrap px-3 py-1 rounded-full bg-slate-800 text-purple-300 text-[11px] border border-slate-700 hover:border-purple-500">🏆 Tokens & HR Hub?</button>
+          <button onclick="sendQuickPrompt('Explain the 5 pricing tiers from Free to Enterprise')" class="whitespace-nowrap px-3 py-1 rounded-full bg-slate-800 text-emerald-300 text-[11px] border border-slate-700 hover:border-emerald-500">💳 Pricing Tiers?</button>
+        `;
+      } else {
+        contextEl.innerText = "Scope: 3. Target Markets, PLG & ICP";
+        chipsEl.innerHTML = `
+          <button onclick="sendQuickPrompt('Why is 80% self-serve a competitive moat?')" class="whitespace-nowrap px-3 py-1 rounded-full bg-slate-800 text-emerald-300 text-[11px] border border-slate-700 hover:border-emerald-500">🏰 The PLG Moat?</button>
+          <button onclick="sendQuickPrompt('What is the iPhone approach to scalability?')" class="whitespace-nowrap px-3 py-1 rounded-full bg-slate-800 text-purple-300 text-[11px] border border-slate-700 hover:border-purple-500">📱 The iPhone Approach?</button>
+          <button onclick="sendQuickPrompt('Explain the 80% vs 1% venture capital disconnect')" class="whitespace-nowrap px-3 py-1 rounded-full bg-slate-800 text-cyan-300 text-[11px] border border-slate-700 hover:border-cyan-500">📊 80% vs 1% Disconnect?</button>
+          <button onclick="sendQuickPrompt('What are the 5 characteristics of Connecteam ICP?')" class="whitespace-nowrap px-3 py-1 rounded-full bg-slate-800 text-blue-300 text-[11px] border border-slate-700 hover:border-blue-500">🎯 5 ICP Pillars?</button>
+        `;
+      }
+    }
+
+    function initWelcomeMessage() {
+      const container = document.getElementById('bot-chat-stream');
+      container.innerHTML = `
+        <div class="flex items-start space-x-2.5">
+          <div class="h-7 w-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5 border border-cyan-500/30">
+            AI
+          </div>
+          <div class="max-w-[88%] rounded-2xl rounded-tl-sm p-3.5 bg-slate-900 border border-slate-800 text-slate-200 space-y-2.5 leading-relaxed">
+            <p class="font-semibold text-white">Welcome to the Connecteam Strategy AI!</p>
+            <p class="text-slate-400">Click any core question below to get an instant breakdown:</p>
+            <div class="space-y-1.5 pt-1">
+              <button onclick="sendQuickPrompt('What is the full funnel?')" class="w-full text-left px-3 py-2 rounded-xl bg-slate-950/80 hover:bg-cyan-950/60 border border-slate-800 hover:border-cyan-500/50 text-cyan-300 text-xs flex items-center justify-between group transition-all">
+                <span>📊 What is the full 10-stage funnel?</span>
+                <span class="text-slate-500 group-hover:text-cyan-400">&rarr;</span>
+              </button>
+              <button onclick="sendQuickPrompt('Summarize all 3 product hubs and what they do')" class="w-full text-left px-3 py-2 rounded-xl bg-slate-950/80 hover:bg-blue-950/60 border border-slate-800 hover:border-blue-500/50 text-blue-300 text-xs flex items-center justify-between group transition-all">
+                <span>⚙️ What are the 3 product hubs?</span>
+                <span class="text-slate-500 group-hover:text-blue-400">&rarr;</span>
+              </button>
+              <button onclick="sendQuickPrompt('Explain the complete PLG business model and moat')" class="w-full text-left px-3 py-2 rounded-xl bg-slate-950/80 hover:bg-emerald-950/60 border border-slate-800 hover:border-emerald-500/50 text-emerald-300 text-xs flex items-center justify-between group transition-all">
+                <span>🚀 How does PLG create an unbeatable moat?</span>
+                <span class="text-slate-500 group-hover:text-emerald-400">&rarr;</span>
+              </button>
+              <button onclick="sendQuickPrompt('What is ARR and how is it calculated vs collections?')" class="w-full text-left px-3 py-2 rounded-xl bg-slate-950/80 hover:bg-amber-950/60 border border-slate-800 hover:border-amber-500/50 text-amber-300 text-xs flex items-center justify-between group transition-all">
+                <span>📈 ARR, MRR & Collections explained</span>
+                <span class="text-slate-500 group-hover:text-amber-400">&rarr;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function askTopicQuestion(topic, question) {
+      if (currentMasterTopic !== topic) switchMasterTopic(topic);
+      toggleGlobalBotDrawer(true);
+      sendQuickPrompt(question);
+    }
+
+    function sendQuickPrompt(text) {
+      document.getElementById('bot-chat-input').value = text;
+      handleBotFormSubmit(new Event('submit'));
+    }
+
+    function handleBotFormSubmit(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById('bot-chat-input');
+      const q = input.value.trim();
+      if (!q) return;
+
+      appendUserBubble(q);
+      input.value = '';
+
+      const typingId = showTypingIndicator();
+      setTimeout(() => {
+        removeTypingIndicator(typingId);
+        const { html, title } = queryMasterKnowledgeBase(q);
+        appendBotBubble(html, title);
+      }, 350);
+    }
+
+    function appendUserBubble(text) {
+      const stream = document.getElementById('bot-chat-stream');
+      const div = document.createElement('div');
+      div.className = "flex items-start justify-end space-x-2";
+      div.innerHTML = `
+        <div class="max-w-[85%] rounded-2xl rounded-tr-sm p-3 bg-blue-600 text-white font-medium shadow-sm leading-relaxed">
+          ${escapeHtml(text)}
+        </div>
+        <div class="h-7 w-7 rounded-lg bg-blue-500/30 text-blue-200 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5 border border-blue-400/40">
+          You
+        </div>
+      `;
+      stream.appendChild(div);
+      stream.scrollTop = stream.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+      const stream = document.getElementById('bot-chat-stream');
+      const id = 'typing-' + Date.now();
+      const div = document.createElement('div');
+      div.id = id;
+      div.className = "flex items-start space-x-2.5";
+      div.innerHTML = `
+        <div class="h-7 w-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5 border border-cyan-500/30">
+          AI
+        </div>
+        <div class="rounded-2xl rounded-tl-sm p-3 bg-slate-900 border border-slate-800 text-slate-400 flex items-center space-x-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.2s]"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.4s]"></span>
+        </div>
+      `;
+      stream.appendChild(div);
+      stream.scrollTop = stream.scrollHeight;
+      return id;
+    }
+
+    function removeTypingIndicator(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    function appendBotBubble(html, title) {
+      const stream = document.getElementById('bot-chat-stream');
+      const messageId = 'botmsg-' + Date.now();
+      const div = document.createElement('div');
+      div.className = "flex items-start space-x-2.5 relative group";
+      div.innerHTML = `
+        <div class="h-7 w-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5 border border-cyan-500/30">
+          AI
+        </div>
+        <div class="relative max-w-[88%] rounded-2xl rounded-tl-sm p-3.5 bg-slate-900 border border-slate-800 text-slate-200 space-y-2 leading-relaxed shadow-sm">
+          <button id="pin-btn-${messageId}" onclick="pinNote('${messageId}')" title="Pin this response" class="absolute top-2.5 right-2.5 p-1 rounded text-slate-400 hover:text-amber-400 hover:bg-slate-800 transition-all">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+            </svg>
+          </button>
+          <div id="${messageId}" data-title="${escapeHtml(title)}" class="pr-5 space-y-1.5">
+            ${html}
+          </div>
+        </div>
+      `;
+      stream.appendChild(div);
+      stream.scrollTop = stream.scrollHeight;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function pinNote(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const title = el.getAttribute('data-title') || 'Strategy Note';
+      const html = el.innerHTML;
+      const idx = pinnedNotes.findIndex(n => n.id === id);
+      const btn = document.getElementById('pin-btn-' + id);
+
+      if (idx > -1) {
+        pinnedNotes.splice(idx, 1);
+        if (btn) {
+          btn.classList.remove('text-amber-400', 'bg-amber-950/60');
+          btn.classList.add('text-slate-400');
+        }
+      } else {
+        pinnedNotes.unshift({
+          id: id, title: title, html: html,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        });
+        if (btn) {
+          btn.classList.add('text-amber-400', 'bg-amber-950/60');
+          btn.classList.remove('text-slate-400');
+        }
+        togglePinnedNotesTray(true);
+      }
+      renderPinnedNotes();
+    }
+
+    function togglePinnedNotesTray(force) {
+      const tray = document.getElementById('bot-pinned-tray');
+      const shouldOpen = typeof force === 'boolean' ? force : tray.classList.contains('hidden');
+      if (shouldOpen) tray.classList.remove('hidden');
+      else tray.classList.add('hidden');
+    }
+
+    function renderPinnedNotes() {
+      const badge = document.getElementById('pinned-count-badge');
+      const counter = document.getElementById('bot-pinned-counter');
+      const list = document.getElementById('bot-pinned-list');
+
+      badge.innerText = pinnedNotes.length;
+      counter.innerText = pinnedNotes.length;
+
+      if (pinnedNotes.length > 0) {
+        badge.classList.remove('hidden');
+        list.innerHTML = pinnedNotes.map(n => `
+          <div class="p-2 rounded-xl bg-slate-900 border border-amber-500/30 flex items-start justify-between gap-2">
+            <div class="space-y-0.5 overflow-hidden">
+              <div class="flex items-center space-x-1.5">
+                <span class="text-amber-400 font-bold text-xs">${escapeHtml(n.title)}</span>
+                <span class="text-[9px] text-slate-500 font-mono">${n.time}</span>
+              </div>
+              <div class="text-[11px] text-slate-300 line-clamp-2">${n.html}</div>
+            </div>
+            <button onclick="pinNote('${n.id}')" title="Unpin" class="p-1 rounded text-slate-400 hover:text-rose-400 shrink-0">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+        `).join('');
+      } else {
+        badge.classList.add('hidden');
+        list.innerHTML = `<div class="text-[11px] text-slate-400 italic">No pinned answers yet. Click the pin icon (📌) on any response to save it here.</div>`;
+      }
+    }
+
+    function clearChatHistory() {
+      initWelcomeMessage();
+    }
+
+    function queryMasterKnowledgeBase(q) {
+      const query = q.toLowerCase();
+      const buildClickableSuggestions = (suggestions) => {
+        return `
+          <div class="mt-3 pt-2.5 border-t border-slate-800 space-y-1.5">
+            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">Suggested Questions (Click to Ask):</span>
+            <div class="flex flex-wrap gap-1.5">
+              ${suggestions.map(s => `
+                <button onclick="sendQuickPrompt('${s.replace(/'/g, "\\'")}')" class="text-left px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-cyan-950/80 border border-slate-800 hover:border-cyan-500/60 text-[11px] text-cyan-300 transition-all flex items-center space-x-1">
+                  <span>💡</span>
+                  <span>${escapeHtml(s)}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      };
+
+      if (query.includes('full funnel') || query.includes('what is the funnel') || query.includes('10 stages')) {
+        return {
+          title: "The Full 10-Stage Conversion Funnel",
+          html: `
+            <div class="font-bold text-cyan-400 text-xs flex items-center space-x-1.5">
+              <span>📊</span>
+              <span>The Full 10-Stage Conversion Funnel Architecture</span>
+            </div>
+            <p class="text-slate-300 text-xs leading-relaxed">
+              Connecteam’s funnel is divided into <strong>8 Pre-Conversion Stages</strong> and <strong>2 Post-Conversion Stages</strong>:
+            </p>
+            <div class="space-y-1.5 text-[11px]">
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-cyan-800/50 space-y-1">
+                <span class="font-bold text-cyan-300 font-mono text-[10px] uppercase block">Part 1: Pre-Conversion (Stages 01–08)</span>
+                <ol class="list-decimal list-inside text-slate-300 space-y-0.5">
+                  <li><strong>Intent & Demand Generation:</strong> Pull search ads vs. Push social broadcast.</li>
+                  <li><strong>Impressions:</strong> Visibility measured through Cost Per Mille (CPM).</li>
+                  <li><strong>Clicks (CPC/PPC):</strong> Qualified visits via keyword bidding auctions.</li>
+                  <li><strong>Landing & Engagement:</strong> Message-matched headline + no-card trial CTA.</li>
+                  <li><strong>Leads:</strong> Micro-conversion capturing name & corporate email.</li>
+                  <li><strong>Sign-up & Profiling:</strong> Company size and operational focus selection.</li>
+                  <li><strong>MQL (Cross-Device):</strong> <span class="text-amber-400 font-semibold">Desktop Admin &rarr; Mobile App Install & team invites</span>.</li>
+                  <li><strong>14-Day Free Trial:</strong> Full sandbox to hit core product "Aha" moments.</li>
+                </ol>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-emerald-800/50 space-y-1">
+                <span class="font-bold text-emerald-400 font-mono text-[10px] uppercase block">Part 2: Post-Conversion (Stages 09–10)</span>
+                <ol class="list-decimal list-inside text-slate-300 space-y-0.5" start="9">
+                  <li><strong>Paid Conversion:</strong> Choosing Basic/Advanced/Enterprise (Annual vs Monthly).</li>
+                  <li><strong>Collections:</strong> Realized cash deposited directly into Connecteam’s bank account.</li>
+                </ol>
+              </div>
+            </div>
+            ${buildClickableSuggestions([
+              'What qualifies a lead as an MQL in Connecteam?',
+              'What is ARR and how is it normalized?',
+              'Explain T-ROI and CAC Payback period'
+            ])}
+          `
+        };
+      }
+
+      if (query.includes('3 hubs') || query.includes('all hubs') || query.includes('product hubs') || query.includes('what are the hubs')) {
+        return {
+          title: "The 3 Core Product Hubs",
+          html: `
+            <div class="font-bold text-blue-400 text-xs flex items-center space-x-1.5">
+              <span>⚙️</span>
+              <span>The 3 Core Product Hubs (All-in-One Deskless Ecosystem)</span>
+            </div>
+            <p class="text-slate-300 text-xs leading-relaxed">
+              Connecteam replaces multiple disparate apps with 3 modular hubs unified in <strong>one single mobile application</strong>:
+            </p>
+            <div class="space-y-2 text-[11px]">
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-cyan-800/50">
+                <strong class="text-cyan-300">1. Operations Hub:</strong> Shift/job scheduling, GPS geofenced time clocks, quick tasks, and digital checklists with automated PDF dispatch to suppliers.
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-blue-800/50">
+                <strong class="text-blue-300">2. Communications Hub:</strong> Dedicated professional work chat, broadcast updates feed with read receipts, auto-revoking employee directory, and mobile SOP knowledge base.
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-purple-800/50">
+                <strong class="text-purple-300">3. HR & Skills Hub:</strong> Public recognitions and digital reward tokens, paperless onboarding (e-signing W-4s), and bite-sized mobile video training courses.
+              </div>
+            </div>
+            ${buildClickableSuggestions([
+              'Why use Connecteam chat instead of personal WhatsApp groups?',
+              'Explain the 5 pricing tiers from Free to Enterprise',
+              'How does the HR Hub reduce turnover with rewards?'
+            ])}
+          `
+        };
+      }
+
+      if (query.includes('plg business model') || query.includes('complete plg') || query.includes('plg moat') || query.includes('product led growth')) {
+        return {
+          title: "Connecteam's PLG Business Model & Moat",
+          html: `
+            <div class="font-bold text-emerald-400 text-xs flex items-center space-x-1.5">
+              <span>🚀</span>
+              <span>Connecteam's Product-Led Growth (PLG) Strategy & Moat</span>
+            </div>
+            <p class="text-slate-300 text-xs leading-relaxed">
+              Unlike legacy enterprise vendors who sell top-down through expensive sales reps, Connecteam’s PLG model builds an unbeatable competitive moat:
+            </p>
+            <div class="space-y-1.5 text-[11px] text-slate-300">
+              <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
+                <strong class="text-emerald-400">1. 80% Zero-Touch Self-Serve:</strong> Customers sign up, invite their crew, and purchase without speaking to a sales rep.
+              </div>
+              <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
+                <strong class="text-cyan-400">2. Low Operational Overhead:</strong> Eliminates huge sales commissions, allowing disruptive low prices.
+              </div>
+              <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
+                <strong class="text-amber-400">3. The Low-Cost Trap:</strong> Legacy vendors cannot match these price points without losing money due to high overhead.
+              </div>
+              <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
+                <strong class="text-purple-400">4. The iPhone Approach:</strong> 1 single codebase seamlessly serves a 5-person cafe up to a 10,000-worker enterprise.
+              </div>
+            </div>
+            ${buildClickableSuggestions([
+              'What is the iPhone approach to scalability?',
+              'What are the 5 characteristics of Connecteam ICP?',
+              'Why did VC fund less than 1% of deskless software in 2016-2018?'
+            ])}
+          `
+        };
+      }
+
+      if (query.includes('arr') || query.includes('mrr') || query.includes('recurring revenue')) {
+        return {
+          title: "ARR & MRR Normalization",
+          html: `
+            <div class="font-bold text-cyan-400 text-xs">📈 ARR & MRR (Recurring Revenue Normalization)</div>
+            <p class="text-xs text-slate-300"><strong>MRR (Monthly Recurring Revenue):</strong> The predictable, recurring subscription revenue recognized in a single month.</p>
+            <p class="text-xs text-slate-300"><strong>ARR (Annual Recurring Revenue):</strong> Normalizes contracts into a 12-month run-rate:</p>
+            <div class="p-2 rounded-xl bg-slate-950 font-mono text-cyan-300 text-[11px] border border-slate-800">ARR = MRR &times; 12</div>
+            <p class="text-slate-300 text-xs">Multi-month or annual contracts are divided evenly across 12 months rather than recognized as a single lump-sum spike.</p>
+            ${buildClickableSuggestions([
+              'What is the full funnel?',
+              'Explain T-ROI and CAC Payback period',
+              'What qualifies a lead as an MQL in Connecteam?'
+            ])}
+          `
+        };
+      }
+
+      if (query.includes('mql') || query.includes('qualified lead') || query.includes('cross-device')) {
+        return {
+          title: "Connecteam Cross-Device MQL",
+          html: `
+            <div class="font-bold text-amber-400 text-xs">📱 Connecteam's Definition of an MQL</div>
+            <p class="text-xs text-slate-300">High commercial intent requires <strong>cross-device behavior</strong>:</p>
+            <div class="p-2 rounded-xl bg-amber-950/40 border border-amber-500/30 text-amber-200 text-[11px]">
+              <strong>The Trigger:</strong> Desktop Admin Sign-up &rarr; Downloads and Opens the Mobile App (or invites field staff who install it).
+            </div>
+            <p class="text-slate-300 text-xs">Managers who only stay on PC never experience how field staff clock in or chat on mobile. Completing the cross-device loop increases conversion by <strong>5x</strong>.</p>
+            ${buildClickableSuggestions([
+              'What is the full funnel?',
+              'Why is 80% self-serve a competitive moat?',
+              'What are the 5 characteristics of Connecteam ICP?'
+            ])}
+          `
+        };
+      }
+
+      if (query.includes('t-roi') || query.includes('payback') || query.includes('breakeven')) {
+        return {
+          title: "Time-to-ROI (T-ROI) Payback",
+          html: `
+            <div class="font-bold text-emerald-400 text-xs">⏱️ Time to ROI (T-ROI) / CAC Payback Period</div>
+            <p class="text-xs text-slate-300">Measures the months required for customer revenue to recover the initial acquisition cost (CAC):</p>
+            <div class="p-2 rounded-xl bg-slate-950 font-mono text-emerald-300 text-[11px] border border-slate-800">CAC Payback (Months) = CAC &divide; MRR per Customer</div>
+            <p class="text-slate-300 text-xs"><strong>Benchmarks:</strong> &lt;8 months is world-class, 8–14 months is healthy standard, and &gt;18 months strains cash flow.</p>
+            ${buildClickableSuggestions([
+              'What is ARR and how is it normalized?',
+              'What is the full funnel?',
+              'Explain the complete PLG business model and moat'
+            ])}
+          `
+        };
+      }
+
+      return {
+        title: "Connecteam Master AI",
+        html: `
+          <div class="font-bold text-cyan-400 text-xs">🤖 Connecteam Master AI Specialist</div>
+          <p class="text-xs text-slate-300">I can answer any core topic or metric across the academy. Click any question below to explore:</p>
+          ${buildClickableSuggestions([
+            'What is the full funnel?',
+            'Summarize all 3 product hubs and what they do',
+            'Explain the complete PLG business model and moat',
+            'What is ARR and how is it normalized?',
+            'What qualifies a lead as an MQL in Connecteam?'
+          ])}
+        `
+      };
+    }
+
+    // --- Onload Initialization ---
+    window.onload = function() {
+      pickFunnelStage(1);
+      initPaybackChart();
+      runFunnelCalc();
+
+      pickOfferingHub('operations');
+      initOfferingDonut();
+
+      initMarketsFundingChart();
+      runScalabilityDemo();
+      runICPScore();
+
+      initWelcomeMessage();
+      updateBotDrawerContext();
+    };
+  </script>
+</body>
+</html>
